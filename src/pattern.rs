@@ -1,6 +1,4 @@
-use std::borrow::Cow;
-
-pub struct HexPattern<'p>(pub Cow<'p, str>);
+use std::fmt::Display;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct PatternId(pub usize);
@@ -12,5 +10,11 @@ impl PatternId {
 
     pub fn usize(&self) -> usize {
         self.0 as usize
+    }
+}
+
+impl Display for PatternId {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "#{}", self.0)
     }
 }
