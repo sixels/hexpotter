@@ -40,7 +40,7 @@ impl MatchedPattern {
     }
 
     #[inline(always)]
-    pub fn pattern_id(&self) -> PatternId {
+    pub fn id(&self) -> PatternId {
         self.pattern_id
     }
 }
