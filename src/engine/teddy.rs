@@ -88,6 +88,7 @@ impl LookupEngine for Teddy {
             return;
         }
 
+        #[allow(unreachable_code)]
         self.scan_slow(data, 0, on_match);
     }
 }
@@ -193,7 +194,10 @@ impl Teddy {
     }
 
     #[cfg(any(target_arch = "aarch64"))]
-    unsafe fn scan_neon(&self, data: &[u8], on_match: &mut impl FnMut((usize, usize)) -> bool) {
+    unsafe fn scan_neon<F>(&self, data: &[u8], on_match: &mut F)
+    where
+        F: FnMut(MatchedPattern) -> Scan + ?Sized,
+    {
         let len = data.len();
         // limit: 16 bytes (vector) + 2 bytes
         if len < 18 {

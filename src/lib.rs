@@ -48,7 +48,7 @@ impl Hexpotter {
         }
 
         #[cfg(target_arch = "aarch64")]
-        if is_aarch64_feature_detected("neon") {
+        {
             use crate::engine::teddy::Teddy;
 
             return Self {
@@ -57,7 +57,7 @@ impl Hexpotter {
         }
 
         #[cfg(target_arch = "arm")]
-        if is_arm_feature_detected!("neon") {
+        {
             use crate::engine::teddy::Teddy;
 
             return Self {
@@ -65,6 +65,7 @@ impl Hexpotter {
             };
         }
 
+        #[allow(unreachable_code)]
         Self {
             engine: Box::new(Anchor::new(patterns)),
         }
